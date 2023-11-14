@@ -62,10 +62,10 @@ class UsersController {
     user.email = email ?? user.email;
     user.avatar = avatar ?? user.avatar;
        
-    var checkIfAvatarIsPng = /\.png$/i; 
-    if(avatar === undefined || checkIfAvatarIsPng.test(user.avatar) === false){    
-      throw new AppError("Avatar não definido ou tipo de arquivo não suportado! ('Exemplo.png')");
-    }
+    // var checkIfAvatarIsPng = /\.png$/i; 
+    // if(avatar === undefined || checkIfAvatarIsPng.test(user.avatar) === false){    
+    //   throw new AppError("Avatar não definido ou tipo de arquivo não suportado! ('Exemplo.png')");
+    // }
     
 
     if (password && !old_password) {
