@@ -22,7 +22,7 @@ export function Profile() {
     : avatarPlaceholder;
 
   const [avatar, setAvatar] = useState(avatarUrl);
-  const [avatarFile, setAvatarFile] = useState(null);
+  const [avatarFile, setAvatarFile] = useState();
 
   function handleChangeAvatar(event) {
     const file = event.target.files[0];
@@ -37,7 +37,7 @@ export function Profile() {
       name,
       email,
       password: passwordNew,
-      old_passwpord: passwordOld,
+      old_password: passwordOld,
     };
 
     await updateProfile({ user, avatarFile });
