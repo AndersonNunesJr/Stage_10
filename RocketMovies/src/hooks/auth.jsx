@@ -30,6 +30,7 @@ function AuthProvider({ children }) {
   function signOut() {
     localStorage.removeItem("@rocketnotes:user");
     localStorage.removeItem("@rocketnotes:token");
+    localStorage.removeItem("@rocketnotes:avatar");
 
     setData({});
   }
@@ -41,7 +42,6 @@ function AuthProvider({ children }) {
         fileUploadForm.append("avatar", avatarFile);
         const response = await api.patch("/users/avatar", fileUploadForm);
         user.avatar = response.data.avatar;
-        console.log("AD");
       }
 
       await api.put("/users", user);

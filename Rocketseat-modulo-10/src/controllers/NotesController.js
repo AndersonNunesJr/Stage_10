@@ -4,16 +4,16 @@ const sqliteConnection = require("../database/sqlite");
 
 class NotesController {
   async create(request, response) {
-    const { title, description,rating, tags/*, links*/ } = request.body;
+    const { title, description,rating, tags } = request.body;
     const { user_id } = request.params;
     const database = await sqliteConnection();
+   
     
     const checkNotesExists = await database.get(
-      "SELECT * FROM notes WHERE title = (?)",
-      [title]
-    );
-          
-
+      "SELECT * FROM notes WHERE title = (?) AND user_id = (?)",
+      [title, user_id]
+    )
+    console.log("AKIIIIIIII")
     if (checkNotesExists) {
       throw new AppError("Já existe uma observação sobre filme.");
     }
@@ -30,13 +30,6 @@ class NotesController {
       rating,
       user_id,
     });
-    // const linksInsert = links.map((link) => {
-    //   return {
-    //     note_id,
-    //     url: link,
-    //   };
-    // });
-    // await knex("links").insert(linksInsert);
 
     const tagsInsert = tags.map((name) => {
       return {
@@ -54,14 +47,11 @@ class NotesController {
 
     const note = await knex("notes").where({ id }).first();
     const tags = await knex("tags").where({ note_id: id }).orderBy("name");
-    // const links = await knex("links")
-    //   .where({ note_id: id })
-    //   .orderBy("created_at");
+
 
     return response.json({
       ...note,
       tags
-      // links,
     });
   }
 

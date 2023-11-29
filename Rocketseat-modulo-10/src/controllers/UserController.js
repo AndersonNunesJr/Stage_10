@@ -22,21 +22,11 @@ class UsersController {
 
     const hashedPassword = await hash(password, 8);
     
-    
-    // let checkIfAvatarIsPng = /\.png$/i; 
-    // // está linha acima verifica se a string termina com .png||.PNG
-    // // no if abaixo verifica se avatar está definido,caso não esteja entra no if
-    // //||no outro caso ele testa se o parametro passado ("Booleano") e falso 
-    // if(avatar === undefined || checkIfAvatarIsPng.test(avatar) === false){    
-    //   throw new AppError("Avatar não definido ou tipo de arquivo não suportado! ('Exemplo.png')");
-    // }
 
     await database.run(
       "INSERT INTO users (name,email,password,avatar) VALUES(?,?,?,?)",
       [name, email, hashedPassword,avatar]
     );
-
-    
 
     return response.status(201).json();
   }
@@ -62,12 +52,6 @@ class UsersController {
     user.email = email ?? user.email;
     user.avatar = avatar ?? user.avatar;
        
-    // var checkIfAvatarIsPng = /\.png$/i; 
-    // if(avatar === undefined || checkIfAvatarIsPng.test(user.avatar) === false){    
-    //   throw new AppError("Avatar não definido ou tipo de arquivo não suportado! ('Exemplo.png')");
-    // }
-    
-
     if (password && !old_password) {
       throw new AppError(
         "Você prescisa informar a senha antiga para definir a nova senha."
