@@ -16,14 +16,14 @@ export function Header({ onSearch }) {
     ? `${api.defaults.baseURL}/files/${user.avatar}`
     : avatarPlaceholder;
 
-  useEffect(() => {
-    async function fetchNotes() {
-      const response = await api.get(`/notes?title=${search}`);
-      setNotes(response.data);
-    }
-    fetchNotes();
-    onSearch(search);
-  }, [search, onSearch]);
+  // useEffect(() => {
+  //   async function fetchNotes() {
+  //     const response = await api.get(`/notes?title=${search}`);
+  //     setNotes(response.data);
+  //   }
+  //   fetchNotes();
+  //   onSearch(search);
+  // }, [search, onSearch]);
   return (
     <Container>
       <h2>RocketMovies</h2>

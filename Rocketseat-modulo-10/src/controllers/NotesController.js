@@ -13,7 +13,7 @@ class NotesController {
       "SELECT * FROM notes WHERE title = (?) AND user_id = (?)",
       [title, user_id]
     )
-    console.log("AKIIIIIIII")
+
     if (checkNotesExists) {
       throw new AppError("Já existe uma observação sobre filme.");
     }

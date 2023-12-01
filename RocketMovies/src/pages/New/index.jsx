@@ -41,7 +41,6 @@ export function New() {
  async function handleNewNote(){
 
   if(!title){
-    console.log(user)
     return alert("Digite um título para nota.")
   }
 
