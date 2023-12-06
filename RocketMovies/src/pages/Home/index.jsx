@@ -26,9 +26,7 @@ export function Home() {
   };
   useEffect(() => {
     async function fetchNotes() {
-      const response = await api.get(`/notes/`);
-      console.log(response.data);
-      console.log(user.id);
+      const response = await api.get(`/notes/${user.id}`);
       setNotes(response.data);
     }
 

@@ -8,7 +8,6 @@ class NotesController {
     const { user_id } = request.params;
     const database = await sqliteConnection();
    
-    
     const checkNotesExists = await database.get(
       "SELECT * FROM notes WHERE title = (?) AND user_id = (?)",
       [title, user_id]
@@ -42,18 +41,27 @@ class NotesController {
 
    return response.json();
   }
+
   async show(request, response) {
-    const { id } = request.params;
-
-    const note = await knex("notes").where({ id }).first();
-    const tags = await knex("tags").where({ note_id: id }).orderBy("name");
-
-
-    return response.json({
-      ...note,
-      tags
+    const { user_id } = request.params;
+  
+    const notes = await knex("notes").where({ user_id });
+    const tagsPromises = notes.map(note => {
+      return knex("tags").where({ note_id: note.id }).orderBy("name");
     });
+  
+    const tagsArray = await Promise.all(tagsPromises);
+  
+    const notesWithTags = notes.map((note, index) => {
+      return {
+        ...note,
+        tags: tagsArray[index]
+      };
+    });
+  
+    return response.json(notesWithTags);
   }
+  
 
   async delete(request, response) {
     const { id } = request.params;
