@@ -11,19 +11,13 @@ import avatarPlaceholder from "../../assets/avatar_placeholder.svg";
 export function Header({ onSearch }) {
   const [search, setSearch] = useState("");
   const { user, signOut } = useAuth();
-  const [notes, setNotes] = useState([]);
   const avatarUrl = user.avatar
     ? `${api.defaults.baseURL}/files/${user.avatar}`
     : avatarPlaceholder;
-
-  // useEffect(() => {
-  //   async function fetchNotes() {
-  //     const response = await api.get(`/notes?title=${search}`);
-  //     setNotes(response.data);
-  //   }
-  //   fetchNotes();
-  //   onSearch(search);
-  // }, [search, onSearch]);
+  const handleSearch = (value) => {
+    setSearch(value);
+    onSearch(value);
+  };
   return (
     <Container>
       <h2>RocketMovies</h2>
@@ -31,7 +25,7 @@ export function Header({ onSearch }) {
       <Input
         placeholder="Pesquisar pelo título"
         type="text"
-        onChange={(e) => setSearch(e.target.value)}
+        onChange={(e) => handleSearch(e.target.value)}
         value={search}
       />
 

@@ -19,10 +19,9 @@ import { api } from "../../services/api";
 
 export function New() {
   const { user } = useAuth();
-  const [title,setTitle]=useState("");
+  const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [rating, setRating]=useState("")
-
+  const [rating, setRating] = useState("");
 
   const [tags, setTags] = useState([]);
   const [newTag, setNewTag] = useState("");
@@ -34,29 +33,36 @@ export function New() {
     setNewTag("");
   }
 
- function handleRemoveTag(deleted){
-  setTags(prevState=>prevState.filter(tag=>tag!==deleted))
- }
- 
- async function handleNewNote(){
-
-  if(!title){
-    return alert("Digite um título para nota.")
+  function handleRemoveTag(deleted) {
+    setTags((prevState) => prevState.filter((tag) => tag !== deleted));
   }
 
-  if(newTag){
-    return alert("Confirme a tag , para adcionar-la.")
-  }
-  await api.post(`/notes/${user.id}`,{
-    title,
-    description,
-    tags,
-    rating
-  });
-  alert("Nota criada com sucesso!");
-  navigate('/');
- }
+  async function handleNewNote() {
+    if (!title) {
+      return alert("Digite um título para nota.");
+    }
 
+    if (newTag) {
+      return alert("Confirme a tag , para adcionar-la.");
+    }
+
+    await api
+      .post(`/notes/${user.id}`, {
+        title,
+        description,
+        tags,
+        rating,
+      })
+      .then(() => {
+        alert("Nota criada com sucesso!");
+        navigate("/");
+      })
+      .catch((error) => {
+        if (error.response) {
+          alert(error.response.data.message);
+        }
+      });
+  }
   return (
     <Container>
       <Header />
@@ -65,25 +71,29 @@ export function New() {
         <Form>
           <h2>Novo Filme</h2>
           <div className="appointment">
-            <Input 
-            placeholder="Título" 
-            type="text" 
-            onChange={e=>setTitle(e.target.value)}
+            <Input
+              placeholder="Título"
+              type="text"
+              onChange={(e) => setTitle(e.target.value)}
             />
-            <Input 
-            placeholder="Sua nota (de 0 a 5)" 
-            type="number" 
-            onChange={e=>setRating(e.target.value)}
-             />
+            <Input
+              placeholder="Sua nota (de 0 a 5)"
+              type="number"
+              onChange={(e) => setRating(e.target.value)}
+            />
           </div>
-          <Textarea 
-          placeholder="Observações" 
-          onChange={e=>setDescription(e.target.value)} 
+          <Textarea
+            placeholder="Observações"
+            onChange={(e) => setDescription(e.target.value)}
           />
           <h3>Marcadores</h3>
           <div className="tags">
             {tags.map((tag, index) => (
-              <Noteitem key={String(index)} value={tag} onClick={() => handleRemoveTag(tag)} />
+              <Noteitem
+                key={String(index)}
+                value={tag}
+                onClick={() => handleRemoveTag(tag)}
+              />
             ))}
             <Noteitem
               isNew
@@ -94,8 +104,12 @@ export function New() {
             />
           </div>
           <footer>
-            <ButtonText title="Excluir" action="button-delete"  />
-            <ButtonText title="Salvar" action="button-add" onClick={handleNewNote}/>
+            <ButtonText title="Excluir" action="button-delete" />
+            <ButtonText
+              title="Salvar"
+              action="button-add"
+              onClick={handleNewNote}
+            />
           </footer>
         </Form>
       </Section>
