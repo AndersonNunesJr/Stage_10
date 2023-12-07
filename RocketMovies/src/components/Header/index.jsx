@@ -14,6 +14,7 @@ export function Header({ onSearch }) {
   const avatarUrl = user.avatar
     ? `${api.defaults.baseURL}/files/${user.avatar}`
     : avatarPlaceholder;
+    
   const handleSearch = (value) => {
     setSearch(value);
     onSearch(value);

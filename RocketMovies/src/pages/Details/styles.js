@@ -13,6 +13,20 @@ export const Container = styled.div`
   .tags {
     margin-bottom: 25px;
   }
+  .btnDelete {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 10px 36px;
+    width: min-content;
+  }
+  .description {
+    background-color: ${({ theme }) => theme.COLORS.BACKGROUND_900};
+    max-height: max-content;
+    padding: 15px 10px;
+    border-radius: 5px;
+    overflow-wrap: break-word;
+  }
 `;
 
 export const Title = styled.div`
@@ -28,7 +42,7 @@ export const Stars = styled.div`
 
   color: ${({ theme }) => theme.COLORS.PINK};
 
-  svg:nth-child(-n + 4) {
+  svg:nth-child(-n + ${(props) => props.value}) {
     width: 20px;
     height: 20px;
     fill: ${({ theme }) => theme.COLORS.PINK};

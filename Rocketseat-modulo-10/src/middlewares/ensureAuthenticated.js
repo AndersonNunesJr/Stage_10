@@ -15,7 +15,6 @@ function ensureAuthenticated(request, response, next){
 
      request.user = {
         id: Number(user_id),
-      
      }
      return next();
    }

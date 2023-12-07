@@ -14,6 +14,14 @@ export const Container = styled.button`
     background-color: ${({ theme }) => theme.COLORS.BACKGROUND_800};
   }
 
+  .description {
+    overflow-wrap: break-word;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
   > h1 {
     margin-bottom: 10px;
     flex: 1;
@@ -43,7 +51,7 @@ export const Stars = styled.div`
 
   color: ${({ theme }) => theme.COLORS.PINK};
 
-  svg:nth-child(-n + 4) {
+  svg:nth-child(-n + ${(props) => props.value}) {
     width: 10px;
     height: 10px;
     fill: ${({ theme }) => theme.COLORS.PINK};

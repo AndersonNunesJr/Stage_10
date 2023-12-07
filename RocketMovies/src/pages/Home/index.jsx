@@ -1,5 +1,3 @@
-/* eslint-disable no-undef */
-/* eslint-disable prettier/prettier */
 import { FiPlus } from "react-icons/fi";
 
 import { Container, PlusButton } from "./styles";
@@ -7,6 +5,7 @@ import { Section, Header, Note } from "../../components";
 import { useEffect, useRef, useState } from "react";
 import { useAuth } from "../../hooks/auth";
 import { api } from "../../services/api";
+import { useNavigate } from "react-router-dom";
 
 export function Home() {
   const { user } = useAuth();
@@ -14,8 +13,10 @@ export function Home() {
   const [notes, setNotes] = useState([]);
   const refTimer = useRef(null);
 
+  const navigate = useNavigate();
+
   const handleSearch = (search) => {
-    if(refTimer.current) {
+    if (refTimer.current) {
       clearTimeout(refTimer.current);
     }
 
@@ -32,7 +33,10 @@ export function Home() {
     fetchNotes();
   }, [searchTerm, user.id]);
 
-  console.log(searchTerm);
+  function handleDetails(id) {
+    navigate(`/details/${id}`);
+  }
+
   return (
     <Container>
       <Header onSearch={handleSearch} />
@@ -45,7 +49,11 @@ export function Home() {
       </div>
       <Section>
         {notes.map((note) => (
-          <Note key={String(note.id)} data={note} />
+          <Note
+            key={String(note.id)}
+            data={note}
+            onClick={() => handleDetails(note.id)}
+          />
         ))}
       </Section>
     </Container>

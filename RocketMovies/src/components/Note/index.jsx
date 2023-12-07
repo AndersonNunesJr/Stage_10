@@ -3,17 +3,19 @@ import { Container, Stars } from "./styles";
 import { Tag } from "../Tag";
 
 export function Note({ data, ...rest }) {
+  const rating = data.rating;
+
   return (
     <Container {...rest}>
       <h1>{data.title}</h1>
-      <Stars>
+      <Stars value={rating}>
         <FiStar />
         <FiStar />
         <FiStar />
         <FiStar />
         <FiStar />
       </Stars>
-      <p>{data.description}</p>
+      <p className="description">{data.description}</p>
 
       {data.tags && (
         <footer>
