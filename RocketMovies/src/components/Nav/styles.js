@@ -16,5 +16,7 @@ export const Container = styled.div`
     align-items: center;
     gap: 5px;
     color: ${({ theme }) => theme.COLORS.PINK};
+    background: none;
+    border: none;
   }
 `;
