@@ -16,7 +16,7 @@ function AuthProvider({ children }) {
       localStorage.setItem("@rocketnotes:token", token);
       localStorage.setItem("@rocketnotes:avatar", user.avatar);
 
-      api.defaults.headers.common.Authorization = `Bearer ${token}`;
+      api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
       setData({ user, token });
     } catch (error) {
       if (error.response) {
@@ -62,7 +62,7 @@ function AuthProvider({ children }) {
     const user = localStorage.getItem("@rocketnotes:user");
 
     if (token && user) {
-      api.defaults.headers.common.Authorization = `Bearer ${token}`;
+      api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
 
       setData({
         token,

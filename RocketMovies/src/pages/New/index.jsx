@@ -25,8 +25,22 @@ export function New() {
 
   const [tags, setTags] = useState([]);
   const [newTag, setNewTag] = useState("");
-
   const navigate = useNavigate();
+  
+  const resetState = () => {
+    setTitle("");
+    setRating("");
+    setTags([]);
+    setNewTag("");
+  };
+  
+  function handleDeleted(){
+    const backHome = window.confirm("Deseja voltar pra página inicial?")
+    if(backHome){
+      navigate("/");
+  }
+    resetState();
+  }
 
   function handleAddTag() {
     setTags((prevState) => [...prevState, newTag]);
@@ -36,7 +50,7 @@ export function New() {
   function handleRemoveTag(deleted) {
     setTags((prevState) => prevState.filter((tag) => tag !== deleted));
   }
-
+  
   async function handleNewNote() {
     if (!title) {
       return alert("Digite um título para nota.");
@@ -69,16 +83,18 @@ export function New() {
       <Nav icon={FiArrowLeft} title="voltar" />
       <Section>
         <Form>
-          <h2>Novo Filme</h2>
+        <h2 className="title">Novo Filme</h2>
           <div className="appointment">
             <Input
               placeholder="Título"
               type="text"
+              value={title}
               onChange={(e) => setTitle(e.target.value)}
             />
             <Input
               placeholder="Sua nota (de 0 a 5)"
               type="number"
+              value={rating}
               onChange={(e) => setRating(e.target.value)}
             />
           </div>
@@ -104,7 +120,7 @@ export function New() {
             />
           </div>
           <footer>
-            <ButtonText title="Excluir" action="button-delete" />
+            <ButtonText title="Excluir" action="button-delete" onClick={handleDeleted} />
             <ButtonText
               title="Salvar"
               action="button-add"

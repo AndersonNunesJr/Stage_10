@@ -24,6 +24,10 @@ export const Container = styled.div`
     gap: 30px;
     margin: 25px 0;
   }
+  .title {
+    margin: 25px 0;
+    font-size: xx-large;
+  }
 `;
 
 export const Form = styled.form`
